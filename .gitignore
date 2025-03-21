@@ -1,0 +1,17 @@
+# node modules
+node_modules/
+
+# pnpm
+.pnpm-store/
+
+# compiled files
+dist/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# npm pack
+/*.tgz
+
+# secrets
+.env
