@@ -11,27 +11,35 @@
 	"license": "MIT",
 	"scripts": {
 		"lint": "eslint src/",
-		"build": "tsc",
-		"dev": "ts-node src/main.ts",
-		"dev:tsx": "tsx src/main.ts",
-		"watch": "nodemon"
+		"build": "tspc",
+		"build:prod": "NODE_ENV=production pnpm build",
+		"prebuild": "rm -rf dist",
+		"postbuild": "tsup",
+		"start": "pnpm build && pnpm docker",
+		"docker": "docker run --rm --name podman-proxy -v ./nginx/conf.d/:/etc/nginx/conf.d/:ro -v ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro -v ./dist/bundle/:/etc/nginx/njs/:ro -p 8080:8080 nginx"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
+			"@swc/core",
 			"esbuild"
 		]
 	},
 	"devDependencies": {
 		"@n0bodysec/eslint-config-x": "github:n0bodysec/eslint-config-x",
+		"@swc/core": "^1.11.11",
 		"@types/node": "^22.13.10",
 		"eslint": "^9.22.0",
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-import-resolver-typescript": "^4.2.2",
 		"eslint-plugin-import": "^2.31.0",
-		"nodemon": "^3.1.9",
-		"ts-node": "^10.9.2",
-		"tsx": "^4.19.3",
+		"njs-types": "^0.8.2",
+		"ts-patch": "^3.3.0",
+		"ts-runtime-checks": "^0.6.3",
+		"tsup": "^8.4.0",
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.27.0"
+	},
+	"dependencies": {
+		"rou3": "^0.5.1"
 	}
 }

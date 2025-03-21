@@ -11,10 +11,14 @@ export default tseslint.config(
 			parserOptions: {
 				projectService: {
 					// add other config files below (e.g.: tsup.config.ts)
-					allowDefaultProject: ['eslint.config.mjs'],
+					allowDefaultProject: ['eslint.config.mjs', 'tsup.config.ts'],
 				},
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
+
+		rules: {
+			'import-x/no-extraneous-dependencies': 'off',
+		}
 	},
 );
